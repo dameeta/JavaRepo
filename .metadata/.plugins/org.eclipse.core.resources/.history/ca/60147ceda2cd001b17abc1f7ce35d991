@@ -1,0 +1,24 @@
+package ArraysExamples;
+
+public class EmpObjArray {
+
+	public void DispEmployee()
+	{
+		
+		Employee [] e1= new Employee[4];
+		e1[0]=new Employee(101,"Suma","Developer");
+	    e1[1]=new Employee(102,"Sudhir","data Analyst");
+		e1[2]=new Employee(101,”Suma”,”Scala developer)
+		e1[3]=new Employee(101,”Suma”,”Java Engineer”)
+
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		
+	}
+
+}

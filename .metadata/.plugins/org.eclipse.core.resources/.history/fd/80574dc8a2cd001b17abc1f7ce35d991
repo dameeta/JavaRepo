@@ -1,0 +1,19 @@
+package ArraysExamples;
+
+public class EmpObjArray {
+
+	public void DispEmployee()
+	{
+		
+		Employee [] e1= new Employee[];
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		
+	}
+
+}

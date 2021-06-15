@@ -1,0 +1,40 @@
+package ArraysExamples;
+
+public class Employee {
+	
+	private int id;
+	private String empname;
+	private String desgn;
+	
+	public Employee(int id, String empname, String desgn) {
+		super();
+		this.id = id;
+		this.empname = empname;
+		this.desgn = desgn;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getEmpname() {
+		return empname;
+	}
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
+	public String getDesgn() {
+		return desgn;
+	}
+	public void setDesgn(String desgn) {
+		this.desgn = desgn;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", empname=" + empname + ", desgn=" + desgn + "]";
+	}
+	
+	
+
+}

@@ -1,0 +1,33 @@
+package ArraysExamples;
+
+class Point{
+	
+	int x,y;
+	public Point(nt x,int y)
+	{
+		
+		this.x=x;
+		this.y=y;
+	}
+}
+
+public class objArray {
+
+	public Point[] createArray() {
+		 Point[] p;
+
+		 p = new Point[10];
+		 for ( int i=0; i<10; i++ ) {
+		 p[i] = new Point(i, i+1);
+		 }
+
+		 return p;
+		 }
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
