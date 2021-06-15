@@ -1,0 +1,13 @@
+package staticPack;
+
+class StaticClass {
+
+	
+	public static int x;
+	
+	public static void showData()
+	{
+		System.out.println(x++);
+		
+	}
+}

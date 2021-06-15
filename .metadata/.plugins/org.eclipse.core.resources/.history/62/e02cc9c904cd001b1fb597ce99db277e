@@ -1,0 +1,10 @@
+package ArraysExamples;
+
+public class varArgsDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

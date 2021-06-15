@@ -1,0 +1,37 @@
+package test;
+
+abstract class Vehicle{
+
+
+    abstract public void move1();
+    abstract public void speed();
+
+    
+
+
+public Car extends Vehicle{
+
+public void move()
+{
+    System.out.println("Car is moving fast from one place to other...");
+}
+
+public void wheels()
+{
+
+    System.out.println("Car has  4 wheels...");
+}
+
+
+public static void main(String[] args) {
+
+
+ Car suzuki=new Car();
+
+suzuki.move(); 
+
+ 
+
+
+}
+}

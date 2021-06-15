@@ -1,0 +1,13 @@
+package outerPackge.inner;
+
+ class testPack {
+
+	public static void packMethod()
+	
+	{
+		
+	System.out.println("This is packMethod..");	
+		
+	}
+	
+}

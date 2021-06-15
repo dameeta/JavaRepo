@@ -1,0 +1,24 @@
+package test;
+
+abstract class Vehicle{
+
+
+    abstract public void move1();
+    abstract public void speed();
+
+    
+}
+
+p
+public static void main(String[] args) {
+
+
+ Car suzuki=new Car();
+
+suzuki.move(); 
+
+ 
+
+
+}
+}

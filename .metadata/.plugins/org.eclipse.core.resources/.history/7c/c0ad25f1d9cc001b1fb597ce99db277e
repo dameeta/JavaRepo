@@ -1,0 +1,10 @@
+package StaticImport;
+
+public class TestStat {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,13 @@
+package StaticImport;
+import M
+public class TestStat {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		//System.out.println(Math.random());
+		System.out.println(sqrt(5));
+	}
+
+}

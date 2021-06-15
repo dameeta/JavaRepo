@@ -1,0 +1,39 @@
+package test;
+
+abstract class Vehicle{
+
+
+    abstract public void move();
+    abstract public void speed();
+
+    
+}
+public class Car extends Vehicle{
+
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void speed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public static void main(String[] args) {
+
+
+ Car suzuki=new Car();
+
+suzuki.move(); 
+
+ 
+
+
+}
+
+@Override
+
+}

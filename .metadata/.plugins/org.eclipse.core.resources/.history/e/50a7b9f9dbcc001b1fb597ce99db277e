@@ -1,0 +1,5 @@
+package staticPack;
+
+public class StaticClass {
+
+}

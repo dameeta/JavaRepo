@@ -1,0 +1,24 @@
+package ArraysExamples;
+
+class A
+{
+
+	public void Add(int ... varargs)
+	{
+		int total=0;
+		for(int i: varargs)
+		{
+			total += i;
+		}
+		System.out.println(total);
+		
+	}
+}
+public class varArgsDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
