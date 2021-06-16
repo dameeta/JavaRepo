@@ -1,0 +1,19 @@
+package CollectionExamples;
+
+import java.util.HashMap;
+
+public class HashMapEx {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+HashMap<Integer, String> hs=new HashMap<>();
+
+hs.put(101, "Abc");
+hs.put(102, "Pbc");
+hs.put(101, "Dbc");
+
+	
+	System.out.println(hs);
+	}
+
+}

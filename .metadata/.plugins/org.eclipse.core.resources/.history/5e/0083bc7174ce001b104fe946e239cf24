@@ -1,0 +1,19 @@
+package CollectionExamples;
+
+import java.util.LinkedHashSet;
+
+public class LinkedHashSetExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		LinkedHashSet<String> lhs=new LinkedHashSet<>();
+		lhs.add("Abc");
+		lhs.add("abc");
+		lhs.add("ABC");
+		lhs.add("Abc");
+		System.out.println(lhs);
+	
+	}
+
+}

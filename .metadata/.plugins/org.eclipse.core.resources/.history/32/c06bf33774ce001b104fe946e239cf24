@@ -1,0 +1,13 @@
+package CollectionExamples;
+
+import java.util.LinkedHashSet;
+
+public class LinkedHashSetExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		LinkedHashSet<String> lhs=new LinkedHashSet<>();
+	}
+
+}

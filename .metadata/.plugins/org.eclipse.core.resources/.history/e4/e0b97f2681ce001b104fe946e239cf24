@@ -1,0 +1,19 @@
+package CollectionExamples;
+
+import java.util.TreeSet;
+
+public class TreeSetExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		TreeSet ts=new TreeSet();
+		ts.add("Abc");
+		//ts.add('a');
+		//ts.add(6);
+		ts.add(null);
+		System.out.println(ts);
+		
+	}
+
+}

@@ -1,0 +1,12 @@
+package CollectionExamples.comparator;
+
+import java.util.Comparator;
+
+public class ProdComparator  implements Comparator<Product>{
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

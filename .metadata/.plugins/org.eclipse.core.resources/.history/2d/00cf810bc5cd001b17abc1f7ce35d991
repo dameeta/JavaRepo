@@ -1,0 +1,27 @@
+package CollectionExamples;
+
+import java.util.*;
+
+import ArraysExamples.Employee;
+
+public class ArrayListUserDefinedObjectExample {
+    public static void main(String[] args) {
+        List<User> users = new ArrayList<>();
+        users.add(new User("Rajeev", 25));
+        users.add(new User("John", 34));
+        users.add(new User("Steve", 29));
+        users.forEach(user -> {
+            System.out.println("Name : " + user.getName() + ", Age : " + user.getAge());
+        });
+        List<Employee> employees =new ArrayList<>();
+        employees.add(new Employee(1010, "Shilpa", "Team leader"));
+        employees.add(new Employee(1011, "Geetha", "Data Scientist"));
+        employees.add(new Employee(1012, "Sohail", "Mean Developer"));
+
+        employees.forEach(emp ->{
+        	
+   	System.out.println("Id is:" +emp.getId() + "The name is" +emp.getEmpname()+"The designation is"+emp.getDesgn());
+
+        });
+    }
+}

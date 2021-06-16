@@ -18,7 +18,7 @@ public class WrapperDemo {
 		int y=3;
 		Integer i=new Integer(x);
 		Integer j=new Integer(y);
-		Integer k = x;//autoboxing;
+		Integer k = x;//autoboxing;//automatic conversion
 		int newVal= k;//autounboxing
     System.out.println(i+j);
     System.out.println(i.SIZE);

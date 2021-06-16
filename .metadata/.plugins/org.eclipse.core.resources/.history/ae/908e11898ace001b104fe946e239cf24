@@ -1,0 +1,34 @@
+package CollectionExamples.Comparablep;
+
+public class Student implements Comparable<Student> {
+
+	int rollno;
+	@Override
+	public String toString() {
+		return "Student [rollno=" + rollno + ", coursename=" + coursename + ", stname=" + stname + "]";
+	}
+
+	String coursename;
+	String stname;
+	
+	@Override
+	public int compareTo(Student o) {
+		// TODO Auto-generated method stub
+		return this.rollno-o.rollno;
+	}
+	
+	public Student(int rollno, String coursename, String stname) {
+		super();
+		this.rollno = rollno;
+		this.coursename = coursename;
+		this.stname = stname;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	
+
+}

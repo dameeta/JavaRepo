@@ -1,0 +1,12 @@
+package CollectionExamples;
+
+public class Product {
+
+	int id;
+	String prname;
+	public Product(int i,String name)
+	{
+		this.id=i;
+		this.prname=name;
+	}
+}
