@@ -1,0 +1,22 @@
+
+public class finallyDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+int x=6 ,y=1;
+		try {
+			
+		}
+		catch(ArithmeticException e1)
+		{
+			
+		}
+		catch(Exception e)
+		{
+			
+			
+		}
+	}
+	
+
+}

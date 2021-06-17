@@ -1,0 +1,20 @@
+package Thread;
+
+public class testThread extends Thread{
+	
+	public void run()
+	{
+		System.out.println("inside run..");
+	}
+
+	public static void main(String[] args) {
+	
+		// TODO Auto-generated method stub
+
+		testThread t1=new testThread();
+		t1.start();
+		testThread t2=new testThread();
+
+	}
+
+}

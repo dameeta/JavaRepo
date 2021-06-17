@@ -1,0 +1,22 @@
+
+public class myException {
+
+	
+	public static int divide(int x,int y) throws ArithmeticException
+	{
+		return x/y;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		try {
+		
+		System.out.println(divide(3,0));
+	}
+		catch(ArithmeticException e)
+		{
+		e.printStackTrace();	
+		}
+		}
+
+}

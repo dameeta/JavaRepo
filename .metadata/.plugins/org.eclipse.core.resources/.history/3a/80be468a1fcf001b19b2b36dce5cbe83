@@ -1,0 +1,17 @@
+package CollectionExamples;
+
+import java.util.Stack;
+
+public class StackEx {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Stack<String> st1=new Stack<>();
+		st1.add("A");
+		st1.add("B");
+		st1.add("C");
+		st1.add("D");
+	}
+
+}

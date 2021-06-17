@@ -1,0 +1,23 @@
+package CollectionExamples;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.Stack;
+
+public class StackEx {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Stack<String> st1=new Stack<>();
+		st1.add("A");
+		st1.add("B");
+		st1.add("C");
+		st1.add("D");
+		System.out.println(st1);
+		Queue q1=new Queue ();
+		
+	}
+
+}

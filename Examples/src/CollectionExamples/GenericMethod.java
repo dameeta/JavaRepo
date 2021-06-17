@@ -1,0 +1,20 @@
+package CollectionExamples;
+
+public class GenericMethod {
+		
+	
+	static <V, T> void myMehtod(V v1, T t1)
+	{
+		
+		System.out.println(v1.getClass().getName()+" :" + v1);
+		System.out.println(t1.getClass().getName()+" :" + t1);
+
+	}
+	
+	public static void main(String [] args)
+	{
+		myMehtod(555, "abc");
+		myMehtod(1.2, false);
+		myMehtod(10002323,'A');
+	}
+}
