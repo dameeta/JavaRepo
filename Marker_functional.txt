@@ -1,0 +1,545 @@
+Lambda expression is a feature of Java language which was introduced in Java 8 version. It is a function that has no name and uses a functional approach to execute code. the lambda expression is also known as an anonymous function.
+
+It is designed to provide the implementation of a functional interface. An interface that has only a single abstract method is known as a functional interface. Java provides an annotation @FunctionalInterface, which is used to declare an interface as a functional interface. For more about Functional interface, read our post on Java Functional Interface.
+
+It uses less code and provides a clear and concise way to represent one method interface. It is very useful in the collection library to iterate, filter, and extract data from the collection.
+
+Advantages of Lambda Expression
+The body of a lambda expression can have one or more statements.
+
+Curly brackets are optional if there is a single statement.
+
+The return statement is optional, use only if the method signature has a return type.
+
+We can pass zero, one, or more parameters to a lambda expression.
+
+The type of parameters can be explicitly declared or it can be inferred from the context.
+
+When there is a single parameter, it is not mandatory to use parentheses. Parentheses are optional.
+
+Syntax
+(list of arguments) -> { expression body}  
+list of arguments can be zero, one, or more.
+
+expression body can have one or more statements.
+
+Short Examples of Lambda Expression
+We can think of lambda expression as a smart and short way to define a function. If you are a beginner then we recommend you to first read about Function and Functional Interface in Java.
+
+You can get the idea of the lambda expression with the help of given basic examples:
+
+() -> System.out.println("executing lambda expression."); // zero argument, lambda expression
+
+(String str) -> System.out.print(str); // single argumment, lambda expression
+
+(int a, int b) -> a+b; // multiple arguments, sum of two values
+
+(a,b) -> a+b // parameters without types, can be used to sum and concat two strings as well.
+
+(int a, int b) -> return (a+b); // lambda expression with return statement
+ 
+(int[]) -> { multiple statments; return index; }   // it can have multiple statements
+In these sample examples, we have variety of lambda expression such as zero argument and single statement, multiple arguments, lambda with return statement, etc. although return statment is optional and it can have multiple statements as well.
+
+One more thing, type of argument is optional it means if we don't provide it then compiler automaticaly interfers the type of arguments which is called type inference.
+
+Now let's create some interesting examples to understand the use of lambda function.
+
+
+
+
+
+Scenario Before Java 8
+Suppose we have an interface that contains a single abstract method and if we provide an implementation of it using prior Java 8 then we have to use an anonymous class concept and the code looks too messy. See the following example that uses anonymous classes
+
+interface Runnable{  
+    public void run();  
+}  
+public class Demo {  
+    public static void main(String[] args) {  
+        int speed=100;  
+  
+        // old approach to implement   
+        Runnable r=new Runnable(){  
+            public void run(){System.out.println("Running at the speed of "+speed);}  
+        };  
+        r.run();  
+    }  
+}  
+Example: Scenario Java 8 and Later
+From Java 8 and later, we can implement such abstract methods using a lambda expression. This is the strength of lambda expression, notice it does not have any name that's why it is also known as an anonymous function.
+
+interface Runnable{  
+    public void run();  
+}  
+public class Demo {  
+    public static void main(String[] args) {  
+        int speed=100;  
+  
+        // new approach (lambda expression) to implement   
+        Runnable r=()->{  
+            System.out.println("Running at the speed of "+speed);  
+        };  
+        r.run();  
+    }  
+}  
+
+Running at the speed of 100
+
+Example: Lambda Expression With Parameter
+Lambda Expression can have zero, one, or multiple parameters as we do with methods. Type of parameter is inferred by the lambda so it is optional, we may or may not mention parameter. See the example wherein second lambda expression we mentioned type of parameter.
+
+interface Runnable{  
+    public void run(int speed);  
+}  
+public class Demo {  
+    public static void main(String[] args) {  
+        int speed=100;  
+  
+        // lambda expression:   
+        Runnable r=(carSpeed)->{  
+            System.out.println("Running at the speed of "+carSpeed);  
+        };  
+        r.run(speed);
+        // specifying type of parameters
+        Runnable r1=(int carSpeed)->{  
+            System.out.println("Running at the speed of "+carSpeed);  
+        }; 
+        r1.run(speed);
+    }  
+}
+
+Running at the speed of 100
+
+Example: Lambda Expression using return Statement
+The return statement is optional with a lambda expression. We may use it to return a value to the caller, in this example, we used two lambda expressions in which first does not use return statement but the second one use return statement.
+
+interface Runnable{  
+    public String run(int speed, int distance);
+}  
+public class Demo {  
+    public static void main(String[] args) {    
+  
+        // lambda expression: without return   
+        Runnable r = (carSpeed,distance)->  
+            ("Distance covered "+ distance +"Km at the speed of "+carSpeed);
+        // calling
+        String r15 = r.run(80,150);
+        System.out.println(r15);
+        // lambda expression: with return statement
+        Runnable r1 = (int carSpeed, int distance)->{ 
+        	return ("Distance covered "+ distance +"Km at the speed of "+carSpeed);
+        };
+        String fz = r1.run(100,200);
+        System.out.println(fz);
+        
+    }  
+}
+
+Distance covered 150Km at the speed of 80
+Distance covered 200Km at the speed of 100
+
+Example: Lambda Expression in Collection
+Although we can use lambda expression anywhere to implement a functional interface here we are using it to iterate the collection elements. here we used the forEach() method of iterator interface.
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Demo {  
+    public static void main(String[] args) {    
+  
+    	List<Integer> list = new ArrayList<>();
+    	list.add(10);
+    	list.add(20);
+    	list.add(30);
+    	list.add(40);
+    	// Traversing using foreach
+    	System.out.println("Traversing using foreach");
+    	for(Integer element: list) {
+    		System.out.println(element);
+    	}
+    	// lambda expression
+    	System.out.println("Traversing using lambda expression");
+    	list.forEach(element->System.out.println(element));
+    }  
+}
+Traversing using foreach
+10
+20
+30
+40
+Traversing using lambda expression
+10
+20
+30
+40
+
+Example: Thread Implementation using Lambda
+The Java Runnable interface is a functional interface that contains a single abstract method. We can implement its run() method using the lambda expression and create thread instance as we did in the below example.
+
+public class Demo {  
+    public static void main(String[] args) {    
+  
+    	// Thread Implementation using anonymous class
+    	Runnable run = new Runnable() {
+    		public void run() {
+    			System.out.println("Thread running...");
+    		}
+    	};
+    	new Thread(run).start();
+    	
+    	// Thread Implementation using lambda expression
+    	Runnable run1 = ()->System.out.println("Thread Running using lambda...");
+    	new Thread(run1).start();
+    	
+    }  
+}
+
+Stream filter() Method
+The stream() method syntax is as follows:
+
+Syntax
+Stream<T> filter(Predicate<? super T> condition)  
+Predicate is a functional interface and represents the condition to filter out the non-matching elements from the stream.
+
+filter() is a intermediate Stream operation.
+It returns a Stream consisting of the elements of the given stream that match the given predicate.
+The filter() argument should be stateless predicate which is applied to each element in the stream to determine if it should be included or not.
+Predicate is a functional interface. So, we can also pass lambda expression also.
+It returns a new Stream so we can use other operations applicable to any stream.
+ Java Stream filter() Example
+2.1. Filtering a Stream using Lambda Expression
+In this Java example, we are iterating over a stream of numbers. We filter all even numbers from the Stream and print them into Console.
+
+Find even numbers in stream
+import java.util.Arrays;
+import java.util.List;
+ 
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+ 
+        list.stream()
+            .filter(n -> n % 2 == 0)
+            .forEach(System.out::println);
+    }
+}
+
+Program output.
+
+Console
+2
+4
+6
+8
+10
+2.2. Filtering a Stream using Predicate
+Java example to iterate over a stream of integers and print only even numbers. This example uses Predicate class in place of the lambda expression, though both are the same things.
+
+Find even numbers in stream
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+ 
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+         
+        Predicate<Integer> condition = new Predicate<Integer>() 
+        {
+            @Override
+            public boolean test(Integer n) {
+                if (n % 2 == 0) {
+                    return true;
+                }
+                return false;
+            }
+        };
+ 
+        list.stream().filter(condition).forEach(System.out::println);
+    }
+}
+Program output.
+
+Console
+2
+4
+6
+8
+10
+2.3. Filtering a Stream and Collecting into a List
+We can use the collect(Collectors.toList()) method to collect the stream of filtered elements into a List.
+
+Find even numbers in stream and collect to a new list
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+ 
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+ 
+        List<Integer> evenNumbers = list.stream()
+                    .filter(n -> n % 2 == 0)
+                    .collect(Collectors.toList());
+         
+        System.out.println(evenNumbers);
+    }
+}
+Program output.
+
+Console
+[2, 4, 6, 8, 10]
+2.4. Java Stream filter() and map() Example
+We can use the map() method to collect the stream elements and then convert each number to its square before collecting it to the List.
+
+Find even numbers in stream and collect the squares
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+ 
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+ 
+        List<Integer> evenNumbers = list.stream()
+                    .filter(n -> n % 2 == 0)
+                    .map(n -> n * n)
+                    .collect(Collectors.toList());
+         
+        System.out.println(evenNumbers);
+    }
+}
+Program output.
+
+Console
+[4, 16, 36, 64, 100]
+
+========================================================
+Java 8 – Functional Interfaces
+Learn about Java 8 functional interfaces and the rules around one abstract method permitted in one interface. Learn to add more methods via default methods in functional interfaces.
+
+Table of Contents 
+
+1. What is functional interface
+2. Do's and Don't's in functional interfaces
+
+1. What is functional interface
+Functional interfaces are new additions in java 8 which permit exactly one abstract method inside them. These interfaces are also called Single Abstract Method interfaces (SAM Interfaces).
+
+In Java 8, functional interfaces can be represented using lambda expressions, method reference and constructor references as well.
+
+Java 8 introduces an annotation i.e. @FunctionalInterface too, which can be used for compiler level errors when the interface you have annotated violates the contracts of exactly one abstract method.
+
+Let’s build our first functional interface:
+
+Functional Interface Definition
+@FunctionalInterface
+public interface MyFirstFunctionalInterface 
+{
+    public void firstWork();
+}
+Let’s try to add another abstract method:
+
+@FunctionalInterface
+public interface MyFirstFunctionalInterface 
+{
+    public void firstWork();
+    public void doSomeMoreWork();   //error
+}
+Above will result into compiler error as given below:
+
+Console
+Unexpected @FunctionalInterface annotation
+@FunctionalInterface ^ MyFirstFunctionalInterface is not a functional interface
+multiple non-overriding abstract methods found in interface MyFirstFunctionalInterface
+Functional-Interface-Error
+
+Read More : Generic functional interfaces
+
+
+2. Do’s and Don’t’s in functional interfaces
+Below is list of things which are allowed and which are not in a functional interface.
+
+As discussed above, only one abstract method is allowed in any functional interface. Second abstract method is not not permitted in a functional interface. If we remove @FunctionInterface annotation then we are allowed to add another abstract method, but it will make the interface non-functional interface.
+A functional interface is valid even if the @FunctionalInterface annotation would be omitted. It is only for informing the compiler to enforce single abstract method inside interface.
+Conceptually, a functional interface has exactly one abstract method. Since default methods have an implementation, they are not abstract. Since default methods are not abstract you’re free to add default methods to your functional interface as many as you like.
+Below is valid functional interface:
+
+@FunctionalInterface
+public interface MyFirstFunctionalInterface 
+{
+    public void firstWork();
+ 
+    default void doSomeMoreWork1(){
+    //Method body
+    }
+ 
+    default void doSomeMoreWork2(){
+    //Method body
+    }
+}
+If an interface declares an abstract method overriding one of the public methods of java.lang.Object, that also does not count toward the interface’s abstract method count since any implementation of the interface will have an implementation from java.lang.Object or elsewhere. e.g. Comparator is a functional interface even though it declared two abstract methods. Why? Because one of these abstract methods “equals()” which has signature equal to public method in Object class.
+e.g. Below interface is a valid functional interface.
+
+@FunctionalInterface
+public interface MyFirstFunctionalInterface 
+{
+    public void firstWork();
+ 
+    @Override
+    public String toString();                //Overridden from Object class
+ 
+    @Override
+    public boolean equals(Object obj);        //Overridden from Object class
+}
+=========================================================================================================
+marker interface
+Marker interface in Java is interfaces with no field or methods or in simple word empty interface in java is called marker interface. Example of marker interface is Serializable, Cloneable, and Remote interface. Now if the marker interface doesn't have any field or method or behavior they why would Java need it?
+
+What is Marker interfaces in Java and why required
+Now, let's understand what exactly is the marker interface in Java, some common examples of marker interface, and what benefits they provide.
+
+
+1. What Marker or Tag interface do in Java?
+Looking carefully at marker interface in Java e.g. Serializable, Cloneable and Remote it looks they are used to indicate something to compiler or JVM. So if JVM sees a Class is Serializable it done some special operation on it, similar way if JVM sees one Class is implement Clonnable it performs some operation to support cloning. 
+
+The same is true for RMI and Remote interface. So in short Marker interface indicate signal or a command to Compiler or JVM.
+
+
+This is pretty standard answer of question about marker interface and once you give this answer most of the time interviewee definitely asked "Why this indication can not be done using a flag inside a class?” this make sense right? Yes this can be done by using a boolean flag or a String but doesn't marking a class like Serializable or Clonnable makes it more readable and it also allows to take advantage of Polymorphism in Java.
+
+Where Should I use Marker interface in Java
+Apart from using built-in marker interface for making a class Serializable or Cloneable. One can also develop his own marker interface. Marker interface is a good way to classify code. You can create marker interface to logically divide your code and if you have your own tool than you can perform some pre-processing operation on those classes. Particularly useful for developing API and framework like Spring or Struts.
+
+After the introduction of Annotation on Java5, Annotation is better choice than marker interface and JUnit is a perfect example of using Annotation e.g. @Test for specifying a Test Class. The same can also be achieved by using Test marker interface.
+
+
+Another use of marker interface in Java
+
+One more use of marker interface in Java can be commenting. a marker interface called ThreadSafe can be used to communicate other developers that classes implementing this marker interface gives thread-safe guarantee and any modification should not violate that. Marker interface can also help code coverage or a code review tool to find bugs based on specified behavior of marker interfaces.
+
+Again Annotations are better choice @ThreadSafe looks lot better than implementing ThraedSafe marker interface.
+
+
+It is an empty interface (no field or methods). Examples of marker interface are Serializable, Clonnable and Remote interface. All these interfaces are empty interfaces.
+
+public interface Serializable 
+{
+  // nothing here
+}
+Examples of Marker Interface which are used in real-time applications :
+
+Cloneable interface : Cloneable interface is present in java.lang package. There is a method clone() in Object class. A class that implements the Cloneable interface indicates that it is legal for clone() method to make a field-for-field copy of instances of that class.
+Invoking Object’s clone method on an instance of the class that does not implement the Cloneable interface results in an exception CloneNotSupportedException being thrown. By convention, classes that implement this interface should override Object.clone() method.
+Refer here for more details.
+
+// Java program to illustrate Cloneable interface
+import java.lang.Cloneable;
+  
+// By implementing Cloneable interface
+// we make sure that instances of class A
+// can be cloned.
+class A implements Cloneable
+{
+    int i;
+    String s;
+  
+    // A class constructor
+    public A(int i,String s)
+    {
+        this.i = i;
+        this.s = s;
+    }
+  
+    // Overriding clone() method
+    // by simply calling Object class
+    // clone() method.
+    @Override
+    protected Object clone()
+    throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
+}
+  
+public class Test
+{
+    public static void main(String[] args)
+        throws CloneNotSupportedException
+    {
+        A a = new A(20, "test11");
+  
+        // cloning 'a' and holding
+        // new cloned object reference in b
+  
+        // down-casting as clone() return type is Object
+        A b = (A)a.clone();
+  
+        System.out.println(b.i);
+        System.out.println(b.s);
+    }
+}
+Output:
+
+20
+test11
+Serializable interface : Serializable interface is present in java.io package. It is used to make an object eligible for saving its state into a file. This is called Serialization.
+Classes that do not implement this interface will not have any of their state serialized or deserialized. All subtypes of a serializable class are themselves serializable.
+
+
+// Java program to illustrate Serializable interface
+import java.io.*;
+  
+// By implementing Serializable interface
+// we make sure that state of instances of class A
+// can be saved in a file.
+class A implements Serializable
+{
+    int i;
+    String s;
+  
+    // A class constructor
+    public A(int i,String s)
+    {
+        this.i = i;
+        this.s = s;
+    }
+}
+  
+public class Test
+{
+    public static void main(String[] args)
+      throws IOException, ClassNotFoundException
+    {
+        A a = new A(20,"test11");
+  
+        // Serializing 'a'
+        FileOutputStream fos = new FileOutputStream("xyz.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(a);
+  
+        // De-serializing 'a'
+        FileInputStream fis = new FileInputStream("xyz.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        A b = (A)ois.readObject();//down-casting object
+  
+        System.out.println(b.i+" "+b.s);
+  
+        // closing streams
+        oos.close();
+        ois.close();
+    }
+}
+Output:
+
+20 test11
+Remote interface : Remote interface is present in java.rmi package. A remote object is an object which is stored at one machine and accessed from another machine. So, to make an object a remote object, we need to flag it with Remote interface. Here, Remote interface serves to identify interfaces whose methods may be invoked from a non-local virtual machine.Any object that is a remote object must directly or indirectly implement this interface. RMI (Remote Method Invocation) provides some convenience classes that remote object implementations can extend which facilitate remote object creation.
