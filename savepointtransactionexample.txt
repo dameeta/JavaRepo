@@ -1,0 +1,147 @@
+import java.sql.*;
+ 
+public class JDBCTransactionSavePointDemo {
+    private String dbURL = "jdbc:mysql://localhost:3306/sales";
+    private String user = "root";
+    private String password = "P@ssw0rd";
+    private Connection conn;
+ 
+    public void connect() {
+        try {
+            conn = DriverManager.getConnection(dbURL, user, password);
+            System.out.println("Connected.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+ 
+    public void disconnect() {
+        try {
+            conn.close();
+            System.out.println("Closed.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+ 
+    public void saveOrder(String newProductName, float newProductPrice,
+                int productId, Date orderDate, float orderAmount, int reportMonth) {
+ 
+        PreparedStatement productStatement = null;
+        PreparedStatement orderStatement = null;
+        PreparedStatement saleStatement = null;
+        PreparedStatement getTotalStatement = null;
+ 
+        try {
+ 
+            conn.setAutoCommit(false);
+ 
+            String sqlSaveProduct = "insert into products (product_name, price)";
+            sqlSaveProduct += " values (?, ?)";
+ 
+            productStatement = conn.prepareStatement(sqlSaveProduct);
+            productStatement.setString(1, newProductName);
+            productStatement.setFloat(2, newProductPrice);
+ 
+            productStatement.executeUpdate();
+ 
+            Savepoint savepoint = conn.setSavepoint();
+ 
+            String sqlSaveOrder = "insert into orders (product_id, order_date, amount)";
+            sqlSaveOrder += " values (?, ?, ?)";
+ 
+            orderStatement = conn.prepareStatement(sqlSaveOrder);
+            orderStatement.setInt(1, productId);
+            orderStatement.setDate(2, orderDate);
+            orderStatement.setFloat(3, orderAmount);
+ 
+            orderStatement.executeUpdate();
+ 
+            String sqlGetTotal = "select total_amount from monthly_sales";
+            sqlGetTotal += " where product_id = ? and report_month = ?";
+ 
+            getTotalStatement = conn.prepareStatement(sqlGetTotal);
+            getTotalStatement.setInt(1, productId);
+            getTotalStatement.setInt(2, reportMonth);
+ 
+            ResultSet rs = getTotalStatement.executeQuery();
+            rs.next();
+            float totalAmount = rs.getFloat("total_amount");
+            rs.close();
+ 
+            if (totalAmount + orderAmount < 10000) {
+ 
+                conn.rollback(savepoint);
+ 
+            }
+ 
+            String sqlUpdateTotal = "update monthly_sales set total_amount = total_amount + ?";
+            sqlUpdateTotal += " where product_id = ? and report_month = ?";
+ 
+ 
+            saleStatement = conn.prepareStatement(sqlUpdateTotal);
+ 
+ 
+            saleStatement.setFloat(1, orderAmount);
+            saleStatement.setInt(2, productId);
+            saleStatement.setInt(3, reportMonth);
+ 
+ 
+            saleStatement.executeUpdate();
+ 
+            conn.commit();
+ 
+        } catch (SQLException ex) {
+            if (conn != null) {
+                try {
+ 
+                    conn.rollback();
+ 
+                    System.out.println("Rolled back.");
+                } catch (SQLException exrb) {
+                    exrb.printStackTrace();
+                }
+            }
+        } finally {
+            try {
+                if (productStatement != null ) {
+                    productStatement.close();
+                }
+ 
+                if (orderStatement != null ) {
+                    orderStatement.close();
+                }
+ 
+                if (saleStatement != null ) {
+                    saleStatement.close();
+                }
+ 
+                if (getTotalStatement != null ) {
+                    getTotalStatement.close();
+                }
+ 
+                conn.setAutoCommit(true);
+            } catch (SQLException excs) {
+                excs.printStackTrace();
+            }
+        }
+    }
+ 
+    public static void main(String[] args) {
+        JDBCTransactionSavePointDemo demo = new JDBCTransactionSavePointDemo();
+ 
+        String newProductName = "iPod";
+        float newProductPrice = 399;
+ 
+        int productId = 1;
+        int reportMonth = 7;
+        Date date = new Date(System.currentTimeMillis());
+        float orderAmount = 580;
+ 
+        demo.connect();
+ 
+        demo.saveOrder(newProductName, newProductPrice, productId, date, orderAmount, reportMonth);
+ 
+        demo.disconnect();
+    }
+}
