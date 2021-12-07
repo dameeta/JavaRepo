@@ -1,0 +1,182 @@
+Angular 12 Animation: A Step By Step Guide For Beginners
+Angular Animation provides the illusion of motion: HTML elements change styling over time. Well-designed animations can make your application more fun and easier to use, but they aren’t just cosmetic. Animations can improve your app and user experience in several ways:
+1.	Without animations, web page transitions can seem abrupt and jarring.
+2.	Motion greatly enhances the user experience, so animations give users a chance to detect the application’s response to their actions.
+3.	Good animations intuitively call the user’s attention to where it is needed.
+Typically, animations involve multiple style transformations over time. An HTML element can move, change color, grow or shrink, fade, or slide off the page. These changes can occur simultaneously or sequentially. You can control the timing of each transformation.
+Angular’s animation system is built on CSS functionality, which means you can animate any property that the browser considers animatable. This includes positions, sizes, transforms, colors, borders, and more. The W3C maintains a list of animatable properties on its CSS Transitions page.
+Angular Animation
+In this Angular Animation Example, we will see how to import the angular animations module and use it in our application. Angular offers the ability to create compelling animations and activate them based on a variety of factors. You can place animations on any HTML element and make them occur based on lifecycles, events.
+First, we need to install the Angular Project via Angular CLI.
+Step 1:  Install the Angular CLI globally.
+Hit the following command in your terminal.
+npm install -g @angular/cli
+Step 2. Create a new project.
+Type the following command.
+ng new nganimations
+Step 3: Serve the application.
+Go to the project directory and launch the server.
+cd my-app
+ng serve --open
+Step 4: Import Animations Module.
+Go to the app.module.ts file and add the following code.
+// app.module.ts
+
+import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+ imports: [
+    BrowserModule, BrowserAnimationsModule
+ ],
+Step 5: Use Bootstrap CSS Framework.
+Go to the Bootstrap Official Website. We will use the CDN and paste those links into our index.html file.
+<!-- index.html -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Nganimation</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+  <app-root></app-root>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+Step 6: Create An Animation Component.
+In the src  >>  app folder, make one TypeScript file called animate.component.ts.
+// animate.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-animate',
+  template: `<div class="myblock mx-auto"></div>`,
+  styles: [`
+  .myblock {
+    background-color: green;
+    width: 300px;
+    height: 250px;
+    border-radius: 5px;
+    margin: 5rem;
+  }
+  `]
+})
+
+export class AnimateComponent {}
+Now, import this component into the app.module.ts file.
+// app.module.ts
+
+import { AnimateComponent } from './animate.component';
+
+declarations: [
+    AppComponent, AnimateComponent
+],
+Finally, include the selector into the app.component.ts file.
+// app.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<app-animate></app-animate>`,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'Angular 5 Animations Tutorial';
+}
+So in the browser, the Green rectangle component will be there.
+ 
+Step 7: Create the buttons to trigger the animation.
+Next, we need to define the proper grid in the app.component.ts file to put the buttons in the browser and trigger the animation event based on the click event.
+// app.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 buttonanimate">
+            <div class="col-md-6">
+              <a (click)="animateSquare('normal')" class="btn btn-danger">Animate1</a>
+            </div>
+            <div class="col-md-6">
+              <a (click)="animateSquare('animated')" class="btn btn-warning">Animate2</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <app-animate></app-animate>
+      </div>
+    </div>
+  </div>`,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'Angular 5 Animations Tutorial';
+  nextState = 'normal';
+  animateSquare(state) {
+    this.nextState = state;
+  }
+}
+Here, I have completed the code for Buttons and Square. I am explaining what is happening right now.
+I have defined two buttons. When the user clicks the button, it will call the function that changes the animation state. Now, we need to connect our changed state to the animation code to change the layout of the square.
+Also, our app.component.css file looks like this.
+.buttonanimate{
+  margin: 5rem;
+}
+Step 8: Write the animation css code.
+I have imported the animation functions inside this file. When the user clicks the button, this animate block will trigger a changeState and react accordingly.
+We have written the logic; when the button is clicked, it will transform from either a normal state to an animated state or an animated state to a normal state.
+// animate.component.ts
+
+import { Component, Input } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
+@Component({
+  selector: 'app-animate',
+  template: `<div [@changeState]="currentState" class="myblock mx-auto"></div>`,
+  styles: [`
+  .myblock {
+    background-color: green;
+    width: 300px;
+    height: 250px;
+    border-radius: 5px;
+    margin: 5rem;
+  }
+  `],
+  animations: [
+    trigger('changeState', [
+      state('normal', style({
+        backgroundColor: 'green',
+        transform: 'scale(1)'
+      })),
+      state('animated', style({
+        backgroundColor: 'blue',
+        transform: 'scale(1.5)'
+      })),
+      transition('*=>normal', animate('800ms')),
+      transition('*=>animated', animate('200ms'))
+    ])
+  ]
+})
+
+export class AnimateComponent {
+  @Input() currentState;
+}
+Here, @Input is used to receive the property from the parent component. So it gets the state from the parent component and will change according to it.
+ 
+
+
