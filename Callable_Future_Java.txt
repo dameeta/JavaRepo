@@ -1,0 +1,191 @@
+Java Concurrency: Executing Value-Returning Tasks with Callable and Future
+This Java Concurrency tutorial guides you how to execute a task that computes a value and wait for the result available. This can be done by submitting a Callable task to an ExecutorService and getting the result via a Future object.
+The ExecutorServiceinterface defines a method that allows us to execute such kind of value-returning tasks:
+     <T> Future<T>   submit(Callable<T> task)
+Here, the type parameter Tis the return type of the task. You submit a task that implements the Callable interface which defines only one method as follows:
+
+public interface Callable<T> {
+    public T call();   
+}
+The purpose of the Callable interface is similar to Runnable, but its method returns a value of type T.
+Once the task is submitted, the executor immediately returns an object of type Future representing the pending results of the task, for example:
+
+Callable<Integer> task = new task that returns an Integer value;
+Future<Integer> result = executor.submit(task);
+Then you can invoke the Future’s get() method to obtain the result upon successful completion. There are two overloads of this method defined as follows:
+
+public interface Future<T> {
+    T get();
+    T get(long timeout, TimeUnit unit);
+}
+The first overload version waits if necessary for the computation to complete and then retrieves its result:
+1
+Integer value = result.get();
+This method blocks the current thread to wait until the computation completes and returns the value.
+
+
+In case you want to wait only for a specified amount of time, use the second overload version:
+1
+Integer value = result.get(2, TimeUnit.SECONDS);
+This call wais if necessary for at most 2 seconds for the computation to complete, and then retrieves the result if available. If the task takes longer time to complete, the call returns null. It throws TimeoutException if the wait timed out.
+And both methods throw ExecutionException if the task threw an exception, and throw InterruptedException if the current thread was interrupted while waiting. 
+ 
+Now, let’s see a complete example.
+Suppose that we have two tasks: the first calculates the factorial value of N numbers, and the second computes the sum of N numbers.
+Implementing the Callable interface, the first task is written as follows:
+import java.util.concurrent.*;
+ 
+/**
+ * FactorialCalculator.java
+ * This class represents a task that computes and returns factorial value
+ * of N numbers.
+ * @author 
+ */
+public class FactorialCalculator implements Callable<Integer> {
+    private int n;
+ 
+    public FactorialCalculator(int n) {
+        this.n = n;
+    }
+ 
+    public Integer call() {
+        int result = 1;
+ 
+        for (int i = 1; i <= n; i++) {
+            result = result * i;
+        }
+ 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+ 
+        return result;
+    }
+}
+Here we use the sleep() method to fake the computation time.
+And code for the second task:
+import java.util.concurrent.*;
+ 
+/**
+ * SumCalculator.java
+ * This class represents a task that computes and returns value of
+ * sum of N numbers.
+ * @author 
+ */
+public class SumCalculator implements Callable<Integer> {
+    private int n;
+ 
+    public SumCalculator(int n) {
+        this.n = n;
+    }
+ 
+    public Integer call() {
+        int sum = 0;
+ 
+        for (int i = 1; i <= n; i++) {
+            sum += i;
+        }
+ 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+ 
+        return sum;
+    }
+}
+And the following program submits two tasks above to a fixed thread pool executor:
+import java.util.concurrent.*;
+ 
+/**
+ * CallableAndFutureExample.java
+ * This program demonstrates how to execute value-returning tasks
+ * and wait for the results available.
+ * 
+ */
+public class CallableAndFutureExample {
+ 
+    public static void main(String[] args) {
+        ExecutorService pool = Executors.newFixedThreadPool(2);
+ 
+        Future<Integer> sumResult = pool.submit(new SumCalculator(100000));
+        Future<Integer> factorialResult = pool.submit(new FactorialCalculator(8));
+ 
+ 
+        try {
+ 
+            Integer sumValue = sumResult.get();
+ 
+            System.out.println("Sum Value = " + sumValue);
+ 
+            Integer factorialValue = factorialResult.get();
+ 
+            System.out.println("Factorial Value = " + factorialValue);
+ 
+        } catch (InterruptedException | ExecutionException ex) {
+            ex.printStackTrace();
+        }
+ 
+        pool.shutdown();
+    }
+}
+Run this program and observe the result. The first task, SumCalculator takes 2 seconds to complete and you see the result displayed after 2 seconds:
+1
+Sum Value = 705082704
+The second task, FactorialCalculator takes 5 seconds to complete, so you see the result 3 seconds after the first result:
+1
+Factorial Value = 40320
+ 
+Cancelling a Task:
+The Future interface defines the following method that allows you to cancel a task:
+boolean cancel(boolean mayInterruptIfRunning)
+
+This method returns false if the task has already completed, has already been cancelled, or could not be cancelled for some other reason.
+If this method returns true:
+- The task will never run if it has not started.
+
+- In case the task has already started, you can decide to interrupt the thread executing the task by specifying the flag mayInterruptIfRunning = true. Otherwise, the task continues until completes.
+
+For example, the following code will cancel the task if it has been running longer than 3 seconds:
+ExecutorService pool = Executors.newFixedThreadPool(2);
+ 
+Future<Integer> factorialResult = pool.submit(new FactorialCalculator(8));
+ 
+ 
+try {
+ 
+    Integer factorialValue = null;
+ 
+    try {
+ 
+        factorialValue = factorialResult.get(3, TimeUnit.SECONDS);
+ 
+    } catch (TimeoutException ex ) {
+        ex.printStackTrace();
+    }
+ 
+    if (factorialValue != null) {
+ 
+        System.out.println("Factorial Value = " + factorialValue);
+ 
+    } else {
+ 
+        boolean cancelled = factorialResult.cancel(true);
+ 
+        System.out.println("Task cancelled? " + cancelled);
+    }
+ 
+} catch (InterruptedException | ExecutionException ex ) {
+    ex.printStackTrace();
+}
+ 
+pool.shutdown();
+Run this code and you will see that after 3 seconds, it throws a TimeoutException because the wait timed out, and throws an InterruptedException because the thread executing the task was interrupted because of the call:
+1
+boolean cancelled = factorialResult.cancel(true);
+In addition, the Future interface provides methods for checking the completion status:
+boolean isDone(): returns true if this task completed.
+boolean isCancelled(): returns true if this task was cancelled before it completed normally.
