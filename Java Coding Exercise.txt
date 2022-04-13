@@ -1,0 +1,67 @@
+Exception Handling
+Define an custom exception (i.e. user defined exception) class called "MyFirstException". This class contains a parameterized constructor which accept one argument String message. Whenever this exception arise will print "Custom Exception Occurred". Create another class called MyMain. This class contains main method, to perform sum of two user given values by using Scanner class. If the sum is less than 150 throw user defined exception or else display sum.
+input
+     a = 30;
+     b = 40;
+     sum = a + b;
+     as sum is 70 .. then 
+     
+     output
+     Custom Exception Occurred
+Write a program to demonstrate exception handling for ArrayIndexOutOfBoundsException, using command line arguments.
+
+Write a program to accept numbers from user and handle all the possible unchecked exception that can occur.
+
+Write a program to print a given string character by character and handle StringIndexOutOfBoundsException.
+
+Write a program to handle ClassCastException, by doing explicit casting of Object to Integer.
+
+String, StringBuilder, StringBuffer
+Write a program to concatenate StringBuilder & StringBuffer objects.
+
+Write a program to get a substring of a StringBuffer.
+
+Write a program to display the length and capacity of String, StringBuilder and StringBuffer.
+
+Write a program to check whether two given strings contains same set of characters as well as having same length.
+
+ input
+ String s1 = "amar";
+ String s2= "rama";
+ 
+ output : Both contains same characters
+Write a program to lexicographically arrange the given strings "Raman" , "Aman" , "Vikram" , "Shyam" and "Bhuvan".
+
+Wrapper Classes (Integer, Byte, Short, Long, Float, Double, Character, Boolean)
+Create objects of all the wrapper classes and print then on console, with using constructor.
+Write a program to demonstrate boxing and un-boxing.
+Write a program to demonstrate autoboxing and unboxing.
+Create an array of 5 integers and print sum and average by creating Integer sum(Integer[] arr) and Double average(Integer sum, Integer numberOfElements). Do casting as required for getting proper result;
+Write a program to print ASCII values of Character objects using wrapper class.
+Write a program to print the smaller of the two given Integer, Double and Character Objects.
+
+Generics
+Create a generic Student class to demonstrate use of generic. Student class contains a field called name, this field will show generic behavior. It can be of Type String or Name, where name is a class representing name by two fields String firstName and String LastName.
+
+Create a generic method sum which accept array of any subtype of Number and return a double value by adding all the elements of the given array.
+
+
+
+Collection (ArrayList & HashSet)
+Create a List & Set of 10 integers and demonstrate ordered and unordered collection as well as duplicate allowed and not allowed. Demonstrate addAll() method also.
+
+
+
+Create a List of 10 Integer objects and try to access 15th index. Properly analysis the output.
+
+
+Create a List of 10 Book objects, where Book is a user defined or custom class. Book class contains following field String bookName, String author, long isbn, & double price. Book class must be properly encapsulated and must implement data hiding. Book class contains parameterized constructors and no-argument constructor. Book class must override String toString() of Object class to represent Book object as string while printing. Kindly sort the list of book by price.
+
+
+
+
+Create a List of 10 Student objects, where Student is a user defined class. Student class contains three private fields int rollNo, String name, and double cpi. Student class must override String toString() method of Object class. Kindly sort the student by there name. And also delete the students whose name starts with "A" & "J".
+
+
+Create a list of 10 Integer objects and process the list element by element to count objects containing even value. Print the total number of odd objects after counting even objects.
+
