@@ -1,0 +1,252 @@
+Open pom.xml and add the following dependencies
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>in.bushansirgur</groupId>
+	<artifactId>productdata</artifactId>
+	<version>v1</version>
+	<name>productdata</name>
+	<description>Spring boot JPA</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+When we create a spring boot project, by default it adds spring-boot-starter-test dependency to write JUnit test cases.
+
+We have added Lombok dependency is a java library that reduces all the boilerplate code.
+
+We have added spring-boot-starter-data-jpa to persist the data to the database.
+
+Configure the data source
+Open application.properties file and add the following content
+
+spring.datasource.url=jdbc:mysql://localhost:3306/springdatajpa
+spring.datasource.username=springbootapps
+spring.datasource.password=springbootapps
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+Create an entity
+Create Product.java inside in.bushansirgur.springboot.entity package and add the following content
+
+package in.bushansirgur.springboot.entity;
+
+import javax.persistence.*;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@ToString
+@Entity
+@Table
+public class Product {
+	
+	@Id
+	private Long id;
+	
+	private String name;
+	
+	@Column(name="description")
+	private String desc;
+	
+	private Double price;
+
+}
+Create a repository
+Create ProductRepo.java inside in.bushansirgur.springboot.repo package and add the following content
+
+package in.bushansirgur.springboot.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import in.bushansirgur.springboot.entity.Product;
+
+public interface ProductRepo extends JpaRepository<Product, Long> {
+
+}
+We have extended with CrudRepository interface which provides useful methods like save(), findById(), findAll() etc., to interact with the database.
+
+Write Unit test cases
+Inside src/test/java create ProductTest.java, where we will write unit test cases for the Product entity.
+
+
+
+
+I use assertThat() method from AssertJ library for more readability than using JUnit’s assertion methods.
+
+Test case for save operation
+Let’s create a unit test case to save the product details to the database
+
+@Test
+public void testCreate () {
+	Product p = new Product();
+	p.setId(1L);
+	p.setName("iPhone XR");
+	p.setDesc("Fantastic");
+	p.setPrice(1000.00);
+	pRepo.save(p);
+	assertNotNull(pRepo.findById(1L).get());
+}
+Test case for read operation
+Let’s create a unit test case to read all the products from the database
+
+@Test
+public void testReadAll () {
+	List list = pRepo.findAll();
+	assertThat(list).size().isGreaterThan(0);
+}
+Let’s create a unit test case to read a single product from the database
+
+@Test
+public void testRead () {
+	Product product = pRepo.findById(1L).get();
+	assertEquals("iPhone XR", product.getName());
+}
+Test case for update operation
+Let’s create a unit test case to update the product details
+
+@Test
+public void testUpdate () {
+	Product p = pRepo.findById(1L).get();
+	p.setPrice(800.00);
+	pRepo.save(p);
+	assertNotEquals(700.00, pRepo.findById(1L).get().getPrice());
+}
+Test case for delete operation
+Let’s create a unit test case to delete the product
+
+@Test
+public void testDelete () {
+	pRepo.deleteById(1L);
+	assertThat(pRepo.existsById(1L)).isFalse();
+}
+Test case for full CRUD operation
+Let’s create a unit test case for complete CRUD operation
+
+package in.bushansirgur.springboot;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import in.bushansirgur.springboot.entity.Product;
+import in.bushansirgur.springboot.repo.ProductRepo;
+
+@SpringBootTest
+@TestMethodOrder(OrderAnnotation.class)
+class ProductdataApplicationTests {
+
+	@Autowired
+	ProductRepo pRepo;
+	
+	@Test
+	@Order(1)
+	public void testCreate () {
+		Product p = new Product();
+		p.setId(1L);
+		p.setName("iPhone XR");
+		p.setDesc("Fantastic");
+		p.setPrice(1000.00);
+		pRepo.save(p);
+		assertNotNull(pRepo.findById(1L).get());
+	}
+		
+	@Test
+	@Order(2)
+	public void testReadAll () {
+		List list = pRepo.findAll();
+		assertThat(list).size().isGreaterThan(0);
+	}
+		
+	@Test
+	@Order(3)
+	public void testRead () {
+		Product product = pRepo.findById(1L).get();
+		assertEquals("iPhone XR", product.getName());
+	}
+		
+	@Test
+	@Order(4)
+	public void testUpdate () {
+		Product p = pRepo.findById(1L).get();
+		p.setPrice(800.00);
+		pRepo.save(p);
+		assertNotEquals(700.00, pRepo.findById(1L).get().getPrice());
+	}
+		
+	@Test
+	@Order(5)
+	public void testDelete () {
+		pRepo.deleteById(1L);
+		assertThat(pRepo.existsById(1L)).isFalse();
+	}
+}
+@Order and @TestMethodOrder annotation will specify the execution order because JUnit doesn’t run test methods in the order they appear in the code.
