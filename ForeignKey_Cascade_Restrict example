@@ -1,0 +1,14 @@
+create table if not exists new_order(ord_no varchar(20),pr_id varchar(20), cat_name varchar(30), primary key(ord_no,pr_id));
+create table if not exists category(cat_id varchar(20),cat_name varchar(20), primary key(cat_id));
+create table if not exists prorder (invoice_no varchar(20) not null unique
+primary key, ord_no varchar(20),pr_id varchar(20),cat_id varchar(20),prod_cat varchar(30),qty int(5),totalcost decimal(13,2),
+index (ord_no,pr_id), foreign key(ord_no,pr_id) references new_order(ord_no,pr_id)
+on update cascade on delete restrict, 
+index(cat_id),
+foreign key(cat_id) references category(cat_id));
+insert into new_order values('A101','P110','clothes');
+insert into category values('A101','clothes');
+insert into prorder values('C1','A101','P110','A101','clothes',5,12000.45);
+update new_order set ord_no= 'A888' where ord_no= 'A101';
+select * from new_order;
+delete from new_order where pr_id='P110';
