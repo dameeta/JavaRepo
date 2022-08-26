@@ -1,0 +1,356 @@
+abstract class buildingStructure{
+    abstract void  plan();
+
+}
+class tower1 extends buildingStructure{
+
+    @Override
+    void plan() {
+        System.out.println("Executing the plan for tower1");
+    }
+}
+
+public class abstractionDemo {
+    public static void main(String[] args) {
+        buildingStructure structure;
+    }
+}
+=================================================================
+package inheritanceDemo;
+class CEO{}
+class DeputyManager extends CEO{}
+class territoryManager extends DeputyManager{}
+class staff extends territoryManager{
+
+}
+
+public class Hierarchical {
+}
+
+===========================================
+package inheritanceDemo;
+class A{
+    public A()
+    {
+        System.out.println("inside A constructor");
+    }
+}
+class B extends A{
+
+    public B() {
+        super();
+        System.out.println("inside B constructor");
+
+    }
+}
+class C extends B{
+    public C() {
+        System.out.println("inside C constructor");
+
+    }
+}
+public class multilevel {
+    public static void main(String[] args) {
+        C cobj=new C();
+
+    }
+}
+=====================================================
+package inheritanceDemo;
+interface furniture{
+    public void woodfurniture();
+
+}
+interface sofaChair{
+    public void  sit();
+}
+class chair extends  Base implements furniture,sofaChair{
+
+    @Override
+    public void woodfurniture() {
+        System.out.println("inside woodfurniture");
+    }
+
+    @Override
+    public void sit() {
+        System.out.println("inside the sit method");
+    }
+    public  void dinningChair()
+    {
+        System.out.println("Inside dining chair...");
+    }
+}
+
+
+
+public class multipleInheritance {
+    public static void main(String[] args) {
+        chair chaoj=new chair();
+        chaoj.sit();
+        chaoj.dinningChair();
+        chaoj.woodfurniture();
+
+    }
+}
+==============================================
+package inheritanceDemo;
+class Base{
+    protected int id;
+    public void BaseMethod()
+    {      id=8;
+        System.out.println("base class id is" +id);
+    }
+}
+
+class child extends Base{
+
+    public void childmethod()
+    {
+        id=67;
+        System.out.println("child class id is" +id);
+    }
+}
+
+public class singleInheritance {
+    public static void main(String[] args) {
+        child obj=new child();
+        Base bobj=new Base();
+        obj.BaseMethod();
+        obj.childmethod();
+
+    }
+
+}
+=========================================================================
+abstract class buildingStructure{
+    abstract void  plan();
+
+}
+class tower1 extends buildingStructure{
+
+    @Override
+    void plan() {
+        System.out.println("Executing the plan for tower1");
+    }
+}
+
+public class abstractionDemo {
+    public static void main(String[] args) {
+        buildingStructure structure;
+    }
+}
+============================================================
+public class constructorDemo {
+    String name="Sunita";
+    int x;
+    public constructorDemo()
+    {
+        System.out.println("Default constructor...");
+    }
+    public constructorDemo(int x,String n)
+    {
+        this.x=x;
+      this.name=n;
+        System.out.println("Hello inside the constructor..." + x + "" +n);
+    }
+
+    public static void main(String[] args) {
+        constructorDemo cst1=new constructorDemo();
+   //     constructorDemo cst2=new constructorDemo(2);
+        constructorDemo cst3=new constructorDemo(4,"Nidhi");
+        constructorDemo cst4=new constructorDemo(5,"Neeta");
+        constructorDemo cst5=new constructorDemo(6,"Ritu");
+constructorDemo s=new constructorDemo(22,"Deep");
+        System.out.println("before the assignment");
+        System.out.println(s.hashCode());
+      //  System.out.println(t.hashCode());
+        System.out.println(s.x + s.name);
+       // System.out.println(t.x + t.name);
+        constructorDemo t=s;
+
+        System.out.println("after the assignment");
+
+        System.out.println(s.hashCode());
+        System.out.println(t.hashCode());
+        System.out.println(s.x + s.name);
+        System.out.println(t.x + t.name);
+
+         t=new constructorDemo(111,"Mittal");
+        System.out.println("after allocating memory for t..");
+        System.out.println(t.hashCode());
+        System.out.println(s.x + s.name);
+        System.out.println(t.x + t.name);
+
+
+
+    }
+}
+=================================================================
+class Account{
+int acno;
+    private double balance=7000.45;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+
+private void display()
+{
+    System.out.println(balance);
+}
+}
+
+public class encapsulation {
+    public static void main(String[] args) {
+
+        Account  acob=new Account();
+        //acob.display();
+acob.setBalance(5000);
+        System.out.println(acob.getBalance());
+    }
+}
+===================================================================================
+import java.util.Scanner;
+
+class Book
+{
+    int x;
+    int mfgid;
+    String barcode;
+    int noofpages;
+    String title;
+    String author;
+    double price;
+    public void Addbook_to_library()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("do you want to add the books to library? yes  or no");
+        String choice=sc.next();
+        if(choice.equals("yes")) {
+            System.out.println("Enter the book details, mfgid,barcode,noofpages,title,author,price");
+            System.out.println("Enter the mfid");
+            mfgid = sc.nextInt();
+            System.out.println("Enter the barcode");
+            barcode = sc.next();
+            System.out.println("Enter the noofpages");
+            noofpages = sc.nextInt();
+            System.out.println("Enter the title");
+            title=sc.next();
+            System.out.println("Enter the author");
+            author=sc.next();
+            System.out.println("Enter the price");
+            price=sc.nextDouble();
+            System.out.println("The Book details are ");
+            System.out.println(mfgid);
+            System.out.println(barcode);
+            System.out.println(noofpages);
+            System.out.println(title);
+            System.out.println(author);
+            System.out.println(price);
+        }
+
+else{
+            System.out.println("no books to add");
+        }
+
+    }
+    public void listlibrarybook()
+    {
+        System.out.println(mfgid);
+        System.out.println(barcode);
+        System.out.println(noofpages);
+        System.out.println(title);
+        System.out.println(author);
+        System.out.println(price);
+
+    }
+
+    public void show(int x)
+    {
+        System.out.println(x);
+    }
+    public void addBook_to_Sale()
+    {
+
+
+    }
+}
+
+public class OOPsExample {
+    public static void main(String[] args) {
+        Book bobj=new Book();
+        bobj.Addbook_to_library();
+         bobj.listlibrarybook();
+      bobj.show(89);
+        System.out.println(bobj.x);
+    }
+}
+===========================================================
+class Product
+{
+    double price;
+    public  Product()
+    {
+
+    }
+    public Product(double pr)
+    {
+        this.price=pr;
+    }
+    public void setPrice(double price)
+    {
+        System.out.println("price is:" + price);
+    }
+
+}
+public class passbyValue {
+    public static void changePrice(Product price)
+    {
+        price=new Product(555.45);
+        System.out.println(price.price);
+    }
+    public static void modifiedPrice(Product pr)
+    {
+        pr.setPrice(1000.33);
+        System.out.println(pr.price);
+    }
+    public static void main(String[] args) {
+Product probj=new Product();
+double p;
+probj.setPrice(400.78);
+    passbyValue.changePrice(probj);
+    }
+}
+==============================================================
+
+package tstJava;
+
+public class staticDemo {
+    int x;
+    static int y;
+    public staticDemo()
+    {
+        x++;
+        System.out.println("value of nonstatic x is" + x);
+        y++;
+        System.out.println("value of static y is" + y);
+
+    }
+
+
+    public static void main(String[] args) {
+staticDemo dmobj1=new staticDemo();
+staticDemo dmobj2=new staticDemo();
+//staticDemo dmobj3=new staticDemo();
+//staticDemo dmobj4=new staticDemo();
+System.out.println(dmobj1.x);
+System.out.println(dmobj1.y);
+
+    }
+}
+======================================================================================================
