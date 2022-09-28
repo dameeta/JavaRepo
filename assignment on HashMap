@@ -1,0 +1,8 @@
+create Movies class 
+{
+int year;
+String gener;
+String title,
+String dor;
+}
+and add the movie collection through HashMap and retrieve it.
