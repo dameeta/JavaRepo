@@ -1,0 +1,99 @@
+import java.util.Scanner;
+
+@FunctionalInterface
+interface Booking{
+
+    public void book();
+
+}
+class Ticket{
+
+    long ticketNo;
+    String traverllerName;
+    String dateOfBooking;
+    double price;
+
+    public Ticket() {
+    }
+
+    public Ticket(long ticketNo, String traverllerName, String dateOfBooking, double price) {
+        this.ticketNo=ticketNo;
+        this.traverllerName = traverllerName;
+        this.dateOfBooking = dateOfBooking;
+        this.price = price;
+    }
+
+    public long getTicketNo() {
+        return ticketNo;
+    }
+
+    public void setTicketNo(long ticketNo) {
+        this.ticketNo = ticketNo;
+    }
+
+    public String getTraverllerName() {
+        return traverllerName;
+    }
+
+    public void setTraverllerName(String traverllerName) {
+        this.traverllerName = traverllerName;
+    }
+
+    public String getDateOfBooking() {
+        return dateOfBooking;
+    }
+
+    public void setDateOfBooking(String dateOfBooking) {
+        this.dateOfBooking = dateOfBooking;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket Details are : {" +
+                "ticketNo=" + ticketNo +
+                ", traverllerName='" + traverllerName + '\'' +
+                ", dateOfBooking='" + dateOfBooking + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
+    public Ticket BookTicket(){
+
+        Scanner sc;String tname;String dob;
+        double price=459.56;
+        System.out.println("Enter if you want to travel?");
+        int choice =new Scanner(System.in).nextInt();
+        if (choice==1) {
+            System.out.println("Enter your name");
+            sc = new Scanner(System.in);
+            tname = sc.next();
+            System.out.println("Enter date of travel in 2-03-2024 format");
+            dob = sc.next();
+            Ticket firstTicket = new Ticket(ticketNo, tname, dob, price);
+
+            return firstTicket;
+        }
+        return new Ticket() ;
+    }
+}
+
+public class TicketReservation {
+
+    public static void main(String[] args) {
+
+        System.out.println("Ticket Zone;");
+
+Ticket t1=new Ticket();
+        System.out.println(t1.BookTicket());
+
+    }
+
+}
